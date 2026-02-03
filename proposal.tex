@@ -1,0 +1,75 @@
+
+\documentclass[12pt,a4paper]{article}
+
+% Encoding & fonts (safe for pdfLaTeX). If you use XeLaTeX, you can remove these two lines.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\geometry{margin=1in}
+\setstretch{1.3}
+
+\title{\textbf{The Chattala}\\ \large A Centralized Hub for Community Q\&A and Digital Commerce in Chattogram}
+\author{Abu Md Selim (2103910202114)\\ Arifur Rahman (0222320005101088)}
+\date{\\\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Abstract}
+The Chattala is a community-driven platform for Chattogram that unifies civic Q\&A, authentic cultural archiving, and a curated digital marketplace with a 24-hour delivery commitment.
+
+\section{Background \& Problem Statement}
+\begin{itemize}[leftmargin=*]
+  \item Fragmented civic engagement: lack of a centralized, verified forum for discussing local issues and heritage.
+  \item Digital delivery void: absence of a dedicated local platform guaranteeing same-day ($\leq$24h) delivery of digital assets and subscriptions.
+  \item Information barriers: tourists, students, and researchers lack a one-stop, trustworthy archive for Chattogram's history and culture.
+\end{itemize}
+
+\section{Goals \& Objectives}
+\begin{itemize}[leftmargin=*]
+  \item Establish a verified community Q\&A hub for local knowledge sharing.
+  \item Build an authentic, category-based content archive for culture, tourism, and history.
+  \item Launch a curated marketplace for AI tools, SaaS, and streaming subscriptions with 24-hour fulfillment.
+  \item Enable civic issue reporting to promote transparency and problem resolution.
+  \item Apply gamification to recognize high-quality contributions and incentivize engagement.
+\end{itemize}
+
+\section{Core Features}
+\subsection{Community Interactive Hub}
+Decentralized knowledge sharing (Quora-inspired), verified residents, tagging, and search.
+
+\subsection{Civic Issue Reporting}
+Structured submission, status tracking (Open $\to$ In Review $\to$ Resolved), and public comments.
+
+\subsection{Content Archive}
+Category-based articles (history, culture, tourism) with editorial workflow.
+
+\subsection{Gamification \& Rewards}
+Points, ranks, badges, and reward redemption (mobile recharge, Canva, YouTube Premium).
+
+\subsection{Digital Marketplace}
+Catalog, checkout, payment, automated license/credential delivery within 24 hours.
+
+\section{Technical Stack}
+Backend: ASP.NET Core 8.0 MVC; Database: MS SQL Server with EF Core (Code-First); Security: ASP.NET Core Identity.
+
+\section{System Architecture}
+Presentation $\to$ Application $\to$ Domain $\to$ Infrastructure; integrations for payment and notifications.
+
+\section{Implementation Plan (Milestones)}
+Weeks 1--2 (Inception), 3--4 (Foundation), 5--8 (Community Q\&A), 9--10 (Civic), 11--12 (Marketplace), 13 (Gamification), 14--15 (Hardening), 16 (UAT \& Launch).
+
+\section{Risks \& Mitigations}
+Spam/content quality (moderation, rate limits), payment failures (retry, multiple gateways), SLA slippage (alerts, escalation), privacy (minimal PII, encryption), scale (caching, async processing).
+
+\section{Conclusion}
+The Chattala aims to become the digital heart of Chattogram by integrating community knowledge, civic action, and rapid digital commerce.
+
+\end{document}
