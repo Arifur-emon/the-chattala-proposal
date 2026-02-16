@@ -1,0 +1,229 @@
+
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{xcolor}
+\geometry{margin=1in}
+\setstretch{1.25}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+\title{\textbf{The Chattala}\\\large Requirement Analysis (Phase-1)}
+\author{Prepared for: ARIFUR RAHMAN}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Executive Summary}
+\textit{The Chattala} is a web platform for Chattogram that combines: (i) a community Q\&A hub, (ii) civic issue reporting with simple status tracking, (iii) an authentic content archive (heritage/culture/tourism), (iv) a curated digital marketplace with a 24-hour fulfilment commitment, and (v) a lightweight rewards program. Phase-1 delivers a functional, web-first MVP on PHP (XAMPP) + MySQL with a responsive Bootstrap UI, session-based authentication, and modular pages.
+
+\section{Business Objectives \& Success Criteria}
+\subsection{Objectives}
+\begin{itemize}[leftmargin=*]
+  \item Centralize local knowledge with verified residents participating in Q\&A.
+  \item Enable civic transparency through issue reporting and basic triage.
+  \item Preserve cultural/tourism content in a browsable archive.
+  \item Offer fast digital delivery (\(\le\) 24h) for marketplace items.
+  \item Encourage contributions via points, ranks, and redeemable rewards.
+\end{itemize}
+
+\subsection{Key Success Metrics (KPIs)}
+\begin{itemize}[leftmargin=*]
+  \item Engagement: daily/weekly questions, answer rate, time-to-first-answer.
+  \item Civic impact: issues reported per month; \% resolved; median time-to-resolution.
+  \item Commerce: checkout conversion; 24h delivery adherence.
+  \item Content quality: upvote ratios, flags resolved.
+  \item Rewards: redemptions processed; avg. approval time.
+\end{itemize}
+
+\section{Stakeholders \& Roles}
+\begin{longtable}{@{}p{0.24\linewidth}p{0.70\linewidth}@{}}
+\toprule
+\textbf{Stakeholder} & \textbf{Responsibilities} \\
+\midrule
+Resident (Verified User) & Ask/answer questions; report civic issues; read archive; browse/checkout marketplace; redeem rewards. \\
+Moderator & Curate content; resolve flags; update civic issue statuses. \\
+Admin & Configure categories/taxonomies; manage users/roles; manage rewards; review metrics. \\
+Vendor & Maintain product catalog; fulfil digital orders within 24 hours. \\
+External partners & Payment gateway, email/SMS providers (future). \\
+\bottomrule
+\end{longtable}
+
+\section{Scope}
+\subsection{In Scope (Phase-1)}
+\begin{itemize}[leftmargin=*]
+  \item Auth \& RBAC: register/login/logout; roles: Resident/Moderator/Admin/Vendor.
+  \item Q\&A: post question; answer; (optionally) accept answer; basic search/filter.
+  \item Civic Issues: create issue; list; statuses (Open \(\to\) In Review \(\to\) Resolved/Closed).
+  \item Archive: create/publish articles with categories (history/culture/tourism).
+  \item Marketplace: browse products; checkout; orders saved; show confirmation/history; 24h delivery policy.
+  \item Rewards: view rewards; submit redemptions (Pending queue).
+  \item Observability (basic): access/error logs; minimal engagement stats (manual).
+\end{itemize}
+
+\subsection{Out of Scope (Phase-1)}
+\begin{itemize}[leftmargin=*]
+  \item Native mobile apps; offline kiosks.
+  \item Advanced personalization/recommendation.
+  \item Complex SLAs beyond 24h; automated multi-gateway failover.
+  \item Sophisticated moderation workflows and dispute resolution.
+\end{itemize}
+
+\section{Functional Requirements (FR)}
+\textbf{Priority legend:} MUST (core MVP), SHOULD (important), COULD (nice-to-have)
+
+\subsection{Authentication \& RBAC}
+\begin{enumerate}[label=FR-AUTH\arabic*., leftmargin=*]
+  \item (MUST) Users register (username/email, password) and login/logout.
+  \item (MUST) Enforce role-based access (Resident/Moderator/Admin/Vendor).
+  \item (SHOULD) Admin can activate/deactivate users and assign roles.
+\end{enumerate}
+
+\subsection{Community Q\&A}
+\begin{enumerate}[label=FR-QNA\arabic*., leftmargin=*]
+  \item (MUST) Resident can post a question (title, body).
+  \item (MUST) Resident can answer a question.
+  \item (SHOULD) Asker can mark an accepted answer.
+  \item (SHOULD) Search/filter questions (keyword/category); sort by recency.
+\end{enumerate}
+
+\subsection{Civic Issues}
+\begin{enumerate}[label=FR-ISS\arabic*., leftmargin=*]
+  \item (MUST) Resident can report a civic issue (title, description, optional location).
+  \item (MUST) Moderator can update status (Open, In Review, Resolved/Closed).
+  \item (MUST) Users can view issues list and details.
+\end{enumerate}
+
+\subsection{Archive (Articles)}
+\begin{enumerate}[label=FR-ARC\arabic*., leftmargin=*]
+  \item (MUST) Author/Admin can create articles under categories.
+  \item (MUST) Publish article to archive.
+  \item (SHOULD) Basic search/browse of archive.
+\end{enumerate}
+
+\subsection{Marketplace}
+\begin{enumerate}[label=FR-MKT\arabic*., leftmargin=*]
+  \item (MUST) Vendor/Admin can add product (name, description, price, SKU, active).
+  \item (MUST) Resident can checkout product(s) and view confirmation/history.
+  \item (MUST) System saves orders with items \& status (Paid \(\to\) Fulfilled).
+  \item (MUST) 24h delivery policy described and operationally followed (manual/semi-auto).
+\end{enumerate}
+
+\subsection{Rewards}
+\begin{enumerate}[label=FR-RWD\arabic*., leftmargin=*]
+  \item (SHOULD) System tracks points for qualified actions (accepted answer, published article).
+  \item (MUST) Resident can redeem rewards; redemptions enter Pending queue.
+  \item (SHOULD) Admin approves/rejects redemptions (inventory/cost external in Phase-1).
+\end{enumerate}
+
+\section{Non-Functional Requirements (NFR)}
+\subsection{Performance \& Availability}
+\begin{itemize}[leftmargin=*]
+  \item (MUST) p95 page latency \(\le\) 300ms for reads; writes \(\le\) 1s under nominal load.
+  \item (SHOULD) Target 99.5\% uptime in Phase-1.
+\end{itemize}
+
+\subsection{Security \& Privacy}
+\begin{itemize}[leftmargin=*]
+  \item (MUST) Passwords hashed (bcrypt); prepared statements; server-side validation.
+  \item (SHOULD) CSRF tokens on forms; role checks around sensitive actions.
+  \item (MUST) Minimal PII; protect sessions; secure cookie flags (HttpOnly).
+\end{itemize}
+
+\subsection{Usability \& Accessibility}
+\begin{itemize}[leftmargin=*]
+  \item (MUST) Responsive Bootstrap UI (mobile/desktop).
+  \item (SHOULD) Aim for WCAG 2.1 AA practices (contrast, keyboard navigation).
+\end{itemize}
+
+\subsection{Maintainability \& Scalability}
+\begin{itemize}[leftmargin=*]
+  \item (MUST) Clear module separation (Q\&A, Issues, Archive, Marketplace, Rewards).
+  \item (COULD) Cache common reads later; paginate large lists.
+\end{itemize}
+
+\subsection{Observability}
+\begin{itemize}[leftmargin=*]
+  \item (MUST) Server access/error logs.
+  \item (COULD) Action counters exposed for admin (questions/day, issues/week).
+\end{itemize}
+
+\section{System Context (Phase-1)}
+\textbf{Presentation/UI:} PHP views with Bootstrap and brand theme.\\
+\textbf{Application:} Simple controllers per module via \texttt{index.php?r=<module>/<action>}.\\
+\textbf{Data:} MySQL with PDO; schema initialised via \texttt{database.sql}.\\
+\textbf{Auth:} Session-based; role checks per action.\\
+\textbf{Runtime:} XAMPP (Apache + MySQL) on Windows; future deploy to shared hosting/LAMP.
+
+\section{High-Level Data Model}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{User}(id, username, email, password\_hash, role, reputation\_points, rank)
+  \item \textbf{Question}(id, title, body, created\_at, user\_id) \(\to\) \textbf{Answer}(id, body, created\_at, question\_id, user\_id, is\_accepted)
+  \item \textbf{Article}(id, title, category, content, published\_at, author\_id)
+  \item \textbf{IssueReport}(id, title, description, status, created\_at, reporter\_id)
+  \item \textbf{Product}(id, name, description, price, sku, is\_active)
+  \item \textbf{Order}(id, user\_id, created\_at, status) \(\to\) \textbf{OrderItem}(id, order\_id, product\_id, quantity, unit\_price)
+  \item \textbf{Reward}(id, name, points\_required, is\_active) \(\to\) \textbf{Redemption}(id, reward\_id, user\_id, redeemed\_at, status)
+\end{itemize}
+
+\section{Constraints \& Assumptions}
+\begin{itemize}[leftmargin=*]
+  \item Web-first MVP; no native apps in Phase-1.
+  \item Manual/semi-auto fulfilment for marketplace (within 24h).
+  \item Payment gateway integration can be deferred; orders recorded as Paid in demo flow.
+  \item Minimal PII; email used for login/contact.
+\end{itemize}
+
+\section{External Dependencies}
+XAMPP stack (Apache/PHP/MySQL). Optional: email/SMS provider (future) and payment gateway (Stripe/SSLCommerz/bKash sandbox in Phase-2).
+
+\section{Risks \& Mitigations}
+\begin{longtable}{@{}p{0.34\linewidth}p{0.56\linewidth}@{}}
+\toprule
+\textbf{Risk} & \textbf{Mitigation} \\
+\midrule
+Low content quality or spam & Moderation, rate limits, basic reputation thresholds. \\
+Delivery misses 24h & Clear escalation, backup operator, communication templates. \\
+SQL injection / CSRF & Prepared statements, server-side validation, CSRF tokens. \\
+Scale (peak loads) & Pagination, caching static lists, async tasks (later). \\
+Privacy/security leaks & Minimal PII, hashed passwords, session hardening, log review. \\
+\bottomrule
+\end{longtable}
+
+\section{Acceptance Criteria (Phase-1)}
+\begin{itemize}[leftmargin=*]
+  \item A resident registers/logs in, posts a question; another user answers; asker can accept an answer.
+  \item A resident reports an issue; moderator updates status to Resolved; status reflected in list.
+  \item An article is created and published; appears in archive list.
+  \item A user checks out a product; order saved; confirmation shown; order visible in history.
+  \item A resident redeems a reward; a Pending redemption is created for admin processing.
+\end{itemize}
+
+\section{Release Plan (Indicative)}
+\begin{itemize}[leftmargin=*]
+  \item Sprint 1--2: Auth/RBAC, base layout/theme, DB schema.
+  \item Sprint 3--4: Q\&A (post, answer, list, accept).
+  \item Sprint 5--6: Civic Issues (report, list, status update).
+  \item Sprint 7: Archive (create, publish, list).
+  \item Sprint 8: Marketplace (browse, checkout, orders).
+  \item Sprint 9: Rewards (list, redeem), clean-ups, acceptance tests.
+  \item Sprint 10: Security hardening (CSRF), logging, final UAT.
+\end{itemize}
+
+\section{Glossary}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Resident}: A verified local user of The Chattala.
+  \item \textbf{Moderator}: Trusted user with content/issue triage privileges.
+  \item \textbf{Vendor}: Supplier of digital goods/subscriptions.
+  \item \textbf{Fulfilment}: Delivering digital access/codes within 24 hours of purchase.
+\end{itemize}
+
+\end{document}
